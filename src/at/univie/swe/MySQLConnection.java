@@ -48,8 +48,7 @@ public class MySQLConnection implements DBConnection {
 		      return null;
 		  }
 		try {
-			//c = DriverManager.getConnection("jdbc:mysql://db4free.net/swedb", "gitanito", "flamenco");
-			c = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
+			c = DriverManager.getConnection("jdbc:mysql://mysql5.univie.ac.at/a1047034", "a1047034", "swe11");
 			  
 			  
 		} catch (SQLException e) {

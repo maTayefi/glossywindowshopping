@@ -4,13 +4,11 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="at.univie.swe.*" %>
 
-<%@ include file="Header.jsp" %>
+<%@ include file="Header.jsp" %> 
 
 <%
-			Toolbox t = new Toolbox();
-			t.connect();
-			ResultSet rs = t.get("select * from person where pid='"+request.getParameter("pid")+"'");
-			rs.next();
+			Person p = new Person(Integer.parseInt(request.getParameter("pid")));
+			
 				%>
 <tr style='height:30px;'>
 	<td><a href='?'>Zur Startseite</a></td>
@@ -18,48 +16,52 @@
 
 <tr>
 	<td valign=top>
-	<h2>User: <%=rs.getString("name") %></h2> 
+	<h2>User: <%=p.getName() %></h2> 
 	</td>
 </tr>
 <tr>
 	<td>
 		<h3>gekaufte Artikel:</h3>
 		<%
-			ResultSet ga = t.get("select distinct a.* from artikel a, gebot g where a.deadline < NOW() and a.aid = g.artikel and g.kaeufer = '"+request.getParameter("pid")+"'");
-			int gacount = 0;
-			while(ga.next()){
-				%><a href='?aid=<%=ga.getInt("aid") %>'><%=ga.getString("name") %></a><br>    <%
-				gacount++;
-			}
-			if (gacount < 1){
+			Artikel[] gekaufteArtikel = p.gekaufteArtikel();
+			
+			if (gekaufteArtikel.length < 1){
 				%>Der User hat noch keine Artikel gekauft<%
+			} else {
+				for (int i = 0; i < gekaufteArtikel.length; i++){
+					%><a href='?aid=<%=gekaufteArtikel[i].getAid() %>'><%=gekaufteArtikel[i].getName() %></a><br>    <%
+				}
+				
 			}
 		%>
 		
 		<h3>bebotene Artikel:</h3>
 		<%
-			ResultSet ba = t.get("select distinct a.* from artikel a, gebot g where a.aid = g.artikel and g.kaeufer = '"+request.getParameter("pid")+"'");
-			int bacount = 0;
-			while(ba.next()){
-				%><a href='?aid=<%=ba.getInt("aid") %>'><%=ba.getString("name") %></a><br>    <%
-				bacount++;
-			}
-			if (bacount < 1){
-				%>Der User hat noch keine Artikel beboten<%
+			Artikel[] beboteneArtikel = p.beboteneArtikel();
+			
+			if (beboteneArtikel.length < 1){
+				%>Der User hat auf keine Artikel geboten<%
+			} else {
+				for (int i = 0; i < beboteneArtikel.length; i++){
+					%><a href='?aid=<%=beboteneArtikel[i].getAid() %>'><%=beboteneArtikel[i].getName() %></a><br>    <%
+				}
+				
 			}
 			
 		%>
 		<h3>angebotene Artikel:</h3>
 		<%
-			ResultSet aa = t.get("select distinct * from artikel a where verkaeufer = '"+request.getParameter("pid")+"'");
-			int aacount = 0;
-			while(aa.next()){
-				%><a href='?aid=<%=aa.getInt("aid") %>'><%=aa.getString("name") %></a><br>    <%
-				aacount++;
-			}
-			if (aacount < 1){
+			Artikel[] angeboteneArtikel = p.beboteneArtikel();
+			
+			if (angeboteneArtikel.length < 1){
 				%>Der User hat noch keine Artikel angeboten<%
+			} else {
+				for (int i = 0; i < angeboteneArtikel.length; i++){
+					%><a href='?aid=<%=angeboteneArtikel[i].getAid() %>'><%=angeboteneArtikel[i].getName() %></a><br>    <%
+				}
+				
 			}
+		
 			
 		%>
 	</td>

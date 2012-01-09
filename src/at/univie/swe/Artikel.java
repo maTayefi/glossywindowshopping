@@ -50,7 +50,7 @@ public class Artikel {
 		if (rs2c.getInt(1) != 0){
 			gebote = new Gebote[rs2c.getInt(1)];
 		}
-		ResultSet rs2 = ((MySQLConnection) c).get("select * from gebot where artikel = '"+ aid +"'");
+		ResultSet rs2 = ((MySQLConnection) c).get("select * from gebot where artikel = '"+ aid +"'  order by uhrzeit desc ");
 		
 		int gcount = 0;
 		while (rs2.next()) {

@@ -10,37 +10,39 @@
 	<td valign=top>
 		<table cellpadding=10><tr><th>Name</th><th>Aktuelles&nbsp;Gebot</th><th>Deadline</th><th>Verk&auml;ufer</th></tr>
 		<%
-		Toolbox t = new Toolbox();
-		t.connect();
 		
-		ResultSet rs = t.get("select * from artikel where deadline > NOW() order by deadline");
+		Artikelliste al = new Artikelliste();
+		
+		Artikel[] alleA = al.suche("");
+		
 		String grey = "dddddd";
 		
-		while (rs.next()) {
+		for (int i = 0; i < alleA.length; i++) {
 			if (grey.equals("dddddd")) grey = "ffffff";
 			else grey = "dddddd";
 			
 			%>
 			<tr style='background:#<%=grey %>'>
-				<td><a href='?aid=<%=rs.getInt("aid") %>'><%=rs.getString("name") %></a></td>
+				<td><a href='?aid=<%=alleA[i].getAid() %>'><%=alleA[i].getName() %></a></td>
 				<td><%
 					// check if Gebote exists
-					ResultSet geb = t.get("select count(*) from gebot where artikel = '"+rs.getInt("aid")+"'");
-					geb.next();
-					if (geb.getInt(1) > 0){
-						ResultSet geb1 = t.get("select * from gebot where artikel = '"+rs.getInt("aid")+"' order by uhrzeit desc limit 1");
-						geb1.next();
-						%>Gebot: <%=geb1.getFloat("preis") %><%
+					
+					Gebote[] geb = alleA[i].getGebote();
+
+					if (geb.length > 0){
+						for (int a = 0; a < geb.length; a++){
+							%>Gebot: <%=geb[a].getPreis() %><%
+						}
+						
 					} else {
-						%><b>Sofort Kaufen</b> <%=rs.getFloat("preis") %><%
+						%><b>Sofort Kaufen</b> <%=alleA[i].getPreis() %><%
 					}
 					%> &euro;</td>
-				<td><%=rs.getDate("deadline") %></td>
+				<td><%=alleA[i].getDeadline() %></td>
 				<td><%
-				
-					ResultSet verkaeufer = t.get("select * from person where pid = '"+rs.getInt("verkaeufer")+"'"); 
-					verkaeufer.next(); %>
-					<a href='?pid=<%=verkaeufer.getInt("pid") %>'><%=verkaeufer.getString("name") %></a>
+					Person verkaeufer = new Person(alleA[i].getVerkaeufer()); 
+					%>
+					<a href='?pid=<%=alleA[i].getVerkaeufer() %>'><%=verkaeufer.getName() %></a>
 				</td>
 			</tr>
 			<%

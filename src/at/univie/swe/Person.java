@@ -53,4 +53,46 @@ public class Person {
 		Pid = pid;
 	}
 
+	
+	public Artikel[] gekaufteArtikel () throws SQLException {
+		ResultSet ga_count = ((MySQLConnection) c).get("select count(distinct a.aid) as ccc from artikel a, gebot g where a.deadline < NOW() and a.aid = g.artikel and g.kaeufer = '"+Pid+"'");
+		ga_count.next();
+		Artikel[] a = new Artikel[ga_count.getInt("ccc")];
+		
+		ResultSet ga = ((MySQLConnection) c).get("select distinct a.aid from artikel a, gebot g where a.deadline < NOW() and a.aid = g.artikel and g.kaeufer = '"+Pid+"'");
+		int gacount = 0;
+		while(ga.next()){
+			a[gacount] = new Artikel(ga.getInt("aid"));
+			gacount++;
+		}
+		return a;
+	}
+	
+	public Artikel[] beboteneArtikel () throws SQLException {
+		ResultSet ga_count = ((MySQLConnection) c).get("select count(distinct a.aid) from artikel a, gebot g where a.aid = g.artikel and g.kaeufer = '"+Pid+"'");
+		ga_count.next();
+		Artikel[] a = new Artikel[ga_count.getInt("ccc")];
+		
+		ResultSet ga = ((MySQLConnection) c).get("select distinct a.aid from artikel a, gebot g where a.aid = g.artikel and g.kaeufer = '"+Pid+"'");
+		int gacount = 0;
+		while(ga.next()){
+			a[gacount] = new Artikel(ga.getInt("aid"));
+			gacount++;
+		}
+		return a;
+	}
+	
+	public Artikel[] angeboteneArtikel () throws SQLException {
+		ResultSet ga_count = ((MySQLConnection) c).get("select count(distinct aid) from artikel a where verkaeufer =  '"+Pid+"'");
+		ga_count.next();
+		Artikel[] a = new Artikel[ga_count.getInt("ccc")];
+		
+		ResultSet ga = ((MySQLConnection) c).get("select distinct aid from artikel a where verkaeufer =  '"+Pid+"'");
+		int gacount = 0;
+		while(ga.next()){
+			a[gacount] = new Artikel(ga.getInt("aid"));
+			gacount++;
+		}
+		return a;
+	}
 }
