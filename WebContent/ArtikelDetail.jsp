@@ -3,8 +3,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="at.univie.swe.*" %>
-
-
 <%@ include file="Header.jsp" %>
 <tr>
 	<td valign=top>
