@@ -10,6 +10,8 @@ public class Person {
 	private int Pid;
 	Connection c;
 	
+	// Das ist ein 2.Test
+	
 	public Person(int pid) throws SQLException {
 		MySQLConnection mysql = new MySQLConnection();
 		c = mysql.connect();
