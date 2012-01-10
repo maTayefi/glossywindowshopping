@@ -74,7 +74,7 @@
 				
 				if (myArt.gebote.length > 0){
 					for (int i = 0; i < myArt.gebote.length; i++){
-						%><a href='?pid=<%=myArt.gebote[i].Kaeufer.getPid() %>'><%=myArt.gebote[i].Kaeufer.getName() %></a> ( <%=myArt.gebote[i].Kaeufer.getPreis()  %>&euro;) <br>    <%
+						%><a href='?pid=<%=myArt.gebote[i].getKaeufer().getPid() %>'><%=myArt.gebote[i].getKaeufer().getName() %></a> ( <%=myArt.gebote[i].getPreis()  %>&euro;) <br>    <%
 					}
 				} else {
 					%>Der Artikel wurde noch nicht beboten<%
