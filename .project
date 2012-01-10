@@ -36,11 +36,11 @@
 	<variableList>
 		<variable>
 			<name>hsql</name>
-			<value>file:/C:/Users/Gitanito/workspace/GlossyWindowShopping/WebContent/WEB-INF/lib/hsqldb.jar</value>
+			<value>file:/D:/eclipse/GlossyWindowShopping/WebContent/WEB-INF/lib/hsqldb.jar</value>
 		</variable>
 		<variable>
 			<name>mysql</name>
-			<value>file:/C:/Users/Gitanito/workspace/GlossyWindowShopping/WebContent/WEB-INF/lib/mysql-connector-java-3.1.14-bin.jar</value>
+			<value>file:/D:/eclipse/GlossyWindowShopping/WebContent/WEB-INF/lib/mysql-connector-java-3.1.14-bin.jar</value>
 		</variable>
 	</variableList>
 </projectDescription>
