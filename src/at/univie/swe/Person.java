@@ -11,6 +11,7 @@ public class Person {
 	Connection c;
 	
 	// Das ist ein 2.Test
+	// noch ein test!!!!
 	
 	public Person(int pid) throws SQLException {
 		MySQLConnection mysql = new MySQLConnection();
