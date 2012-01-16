@@ -52,10 +52,10 @@ public class MySQLConnection implements DBConnection {
 		      return null;
 		  }
 		
-		String url = "jdbc:mysql://localhost/test";
+		String url = "jdbc:mysql://mysql5.univie.ac.at/a1047034";
 		Properties p = new Properties();
-		p.setProperty("user", "root");
-		p.setProperty("password", "");
+		p.setProperty("user", "a1047034");
+		p.setProperty("password", "swe11");
 		p.setProperty("jdcbCompliantTruncation", "false");
 		
 		ConnectionPool cp = new ConnectionPool("com.mysql.jdbc.Driver",url,p);
