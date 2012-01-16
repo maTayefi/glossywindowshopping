@@ -7,7 +7,7 @@ public class Gebote {
 	private float Preis;
 	private int Uhrzeit;
 	private Person Kaeufer;
-	private Artikel Art;
+	private int Art;
 	
 	public int getGid() {
 		return Gid;
@@ -37,14 +37,11 @@ public class Gebote {
 		Person k = new Person(kaeufer);
 		Kaeufer = k;
 	}
-	public Artikel getArtikel() {
+	public int getArtikel() {
 		return Art;
 	}
-	public void setArtikel(Artikel artikel) {
-		Art = artikel;
-	}
 	public void setArtikel(int aid) throws SQLException {
-		Art = new Artikel(aid);
+		Art = aid;
 	}
 
 

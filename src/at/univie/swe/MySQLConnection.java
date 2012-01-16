@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class MySQLConnection implements DBConnection {
 	ResultSet rs = null;
@@ -13,6 +14,9 @@ public class MySQLConnection implements DBConnection {
 	
 	boolean makedone = false;
 	
+	public MySQLConnection(){
+		connect();
+	}
 
 	@Override
 	public ResultSet get(String a) {
@@ -47,13 +51,17 @@ public class MySQLConnection implements DBConnection {
 		      e.printStackTrace();
 		      return null;
 		  }
-		try {
-			c = DriverManager.getConnection("jdbc:mysql://mysql5.univie.ac.at/a1047034", "a1047034", "swe11");
-			  
-			  
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
+		String url = "jdbc:mysql://localhost/test";
+		Properties p = new Properties();
+		p.setProperty("user", "root");
+		p.setProperty("password", "");
+		p.setProperty("jdcbCompliantTruncation", "false");
+		
+		ConnectionPool cp = new ConnectionPool("com.mysql.jdbc.Driver",url,p);
+		c = cp.getConnection();
+		//c = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
+		//c = DriverManager.getConnection("jdbc:mysql://mysql5.univie.ac.at/a1047034", "a1047034", "swe11");
 		
 		try { // If Database is not filled: fill
 			statement = c.createStatement();

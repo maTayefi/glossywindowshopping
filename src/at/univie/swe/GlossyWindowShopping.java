@@ -57,17 +57,37 @@ public class GlossyWindowShopping extends HttpServlet implements SingleThreadMod
 		if ( request.getParameter("changeusername") != null && request.getParameter("changepasswort") != null && request.getParameter("changepid") != null) { 
 			
 			MySQLConnection t = new MySQLConnection();
-			t.connect();
 			t.set("update person set name='"+request.getParameter("changeusername")+"', passwort='"+request.getParameter("changepasswort")+"' where pid='"+request.getParameter("changepid")+"'");
 			
 		}
+		
+		// voting für Artikel
+		if ( request.getParameter("voteArtikel") != null ) { 
+			MySQLConnection t = new MySQLConnection();
+			t.set("insert into votingartikel (aid,vote) values ('"+request.getParameter("voteArtikel")+"','"+request.getParameter("vote")+"')");
+			
+		}
+
+		// voting für Kaefer
+		if ( request.getParameter("voteKaeufer") != null ) { 
+			MySQLConnection t = new MySQLConnection();
+			t.set("insert into votingkaeufer (kid,vote) values ('"+request.getParameter("voteKaeufer")+"','"+request.getParameter("vote")+"')");
+			
+		}
+
+		// voting für Kaefer
+		if ( request.getParameter("voteVerkaeufer") != null ) { 
+			MySQLConnection t = new MySQLConnection();
+			t.set("insert into votingverkaeufer (vid,vote) values ('"+request.getParameter("voteVerkaeufer")+"','"+request.getParameter("vote")+"')");
+			
+		}
+
 		
 		// neuer Artikel wird angelegt
 		if ( request.getParameter("newartikelname") != null && request.getParameter("newartikelprice") != null ) { 
 			
 			MySQLConnection t = new MySQLConnection();
-			t.connect();
-			t.set("insert into artikel (name,preis,deadline,verkaeufer) values ('"+request.getParameter("newartikelname")+"','"+request.getParameter("newartikelprice")+"',DATE_ADD(NOW(), INTERVAL 7 DAY),'"+session.getAttribute("uid")+"')");
+			t.set("insert into artikel (name,preis,deadline,verkaeufer,kat) values ('"+request.getParameter("newartikelname")+"','"+request.getParameter("newartikelprice")+"',DATE_ADD(NOW(), INTERVAL 7 DAY),'"+session.getAttribute("uid")+"','"+session.getAttribute("newartikelkat")+"')");
 			
 		}
 				
@@ -82,6 +102,9 @@ public class GlossyWindowShopping extends HttpServlet implements SingleThreadMod
 		} else if (request.getParameter("a")!=null && request.getParameter("a").equals("searchartikel")){
 			getServletConfig().getServletContext().getRequestDispatcher(
 			        "/ArtikelDurchsuchen.jsp").forward(request,response);
+		} else if (request.getParameter("a")!=null && request.getParameter("a").equals("searchpersonen")){
+			getServletConfig().getServletContext().getRequestDispatcher(
+			        "/PersonenDurchsuchen.jsp").forward(request,response);
 		} else if (request.getParameter("a")!=null && request.getParameter("a").equals("artikelneu")){
 			getServletConfig().getServletContext().getRequestDispatcher(
 			        "/ArtikelNeu.jsp").forward(request,response);

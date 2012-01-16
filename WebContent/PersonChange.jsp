@@ -7,10 +7,8 @@
 <%@ include file="Header.jsp" %>
 
 <%
-			Toolbox t = new Toolbox();
-			t.connect();
-			ResultSet rs = t.get("select * from person where pid='"+request.getParameter("rid")+"'");
-			rs.next();
+			Person p = new Person(Integer.valueOf(request.getParameter("rid")));
+			
 				%>
 <tr style='height:30px;'>
 	<td><a href='?'>Zur Startseite</a></td>
@@ -20,8 +18,8 @@
 	<td valign=top>
 	<form method=get >
 	<input type=hidden name=changepid value='<%=request.getParameter("rid") %>'>
-	<b>Username:</b> <input type=text name=changeusername value='<%=rs.getString("name") %>'><br> 
-	<b>Passwort:</b> <input type=text name=changepasswort value='<%=rs.getString("passwort") %>'><br> 
+	<b>Username:</b> <input type=text name=changeusername value='<%=p.getName() %>'><br> 
+	<b>Passwort:</b> <input type=text name=changepasswort value='<%=p.getPasswort() %>'><br> 
 	<input type=submit value='Speichern'><br> 
 	</form>
 	</td>

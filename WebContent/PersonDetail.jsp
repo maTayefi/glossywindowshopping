@@ -20,10 +20,44 @@
 	</td>
 </tr>
 <tr>
+	<td valign=top>
+	<h3>Typ: <%=p.getTyp() %></h3> 
+	</td>
+</tr>
+<tr>
+	<td valign=top>
+	<h3>Voting als K&auml;ufer: <%=p.getVotingKaeufer() %></h3> 
+	Bewerten Sie diese Person als Käufer: 
+	<a href="?pid=<%=request.getParameter("pid")%>&voteKaeufer=<%=request.getParameter("pid")%>&vote=0">0</a>&nbsp;
+	<a href="?pid=<%=request.getParameter("pid")%>&voteKaeufer=<%=request.getParameter("pid")%>&vote=1">1</a>&nbsp;
+	<a href="?pid=<%=request.getParameter("pid")%>&voteKaeufer=<%=request.getParameter("pid")%>&vote=2">2</a>&nbsp;
+	<a href="?pid=<%=request.getParameter("pid")%>&voteKaeufer=<%=request.getParameter("pid")%>&vote=3">3</a>&nbsp;
+	<a href="?pid=<%=request.getParameter("pid")%>&voteKaeufer=<%=request.getParameter("pid")%>&vote=4">4</a>&nbsp;
+	<a href="?pid=<%=request.getParameter("pid")%>&voteKaeufer=<%=request.getParameter("pid")%>&vote=5">5</a>&nbsp;
+	<h3>Voting als Verk&auml;ufer: <%=p.getVotingVerkaeufer() %></h3>  
+	Bewerten Sie diese Person als Verkäufer: 
+	<a href="?pid=<%=request.getParameter("pid")%>&voteVerkaeufer=<%=request.getParameter("pid")%>&vote=0">0</a>&nbsp;
+	<a href="?pid=<%=request.getParameter("pid")%>&voteVerkaeufer=<%=request.getParameter("pid")%>&vote=1">1</a>&nbsp;
+	<a href="?pid=<%=request.getParameter("pid")%>&voteVerkaeufer=<%=request.getParameter("pid")%>&vote=2">2</a>&nbsp;
+	<a href="?pid=<%=request.getParameter("pid")%>&voteVerkaeufer=<%=request.getParameter("pid")%>&vote=3">3</a>&nbsp;
+	<a href="?pid=<%=request.getParameter("pid")%>&voteVerkaeufer=<%=request.getParameter("pid")%>&vote=4">4</a>&nbsp;
+	<a href="?pid=<%=request.getParameter("pid")%>&voteVerkaeufer=<%=request.getParameter("pid")%>&vote=5">5</a>&nbsp;
+	
+	</td>
+</tr>
+<%
+Artikel[] gekaufteArtikel = p.gekaufteArtikel();
+Artikel[] beboteneArtikel = p.beboteneArtikel();
+Artikel[] angeboteneArtikel = p.angeboteneArtikel();
+
+%>
+<tr>
+	<td><img src="http://chart.apis.google.com/chart?chs=300x150&cht=p&chd=t:<%=gekaufteArtikel.length %>,<%=beboteneArtikel.length %>,<%=angeboteneArtikel.length %>&chp=0.628&chl=gekauft|beboten|angeboten" width="300" height="150" alt="" /></td>
+</tr>
+<tr>
 	<td>
 		<h3>gekaufte Artikel:</h3>
 		<%
-			Artikel[] gekaufteArtikel = p.gekaufteArtikel();
 			
 			if (gekaufteArtikel.length < 1){
 				%>Der User hat noch keine Artikel gekauft<%
@@ -37,7 +71,6 @@
 		
 		<h3>bebotene Artikel:</h3>
 		<%
-			Artikel[] beboteneArtikel = p.beboteneArtikel();
 			
 			if (beboteneArtikel.length < 1){
 				%>Der User hat auf keine Artikel geboten<%
@@ -51,7 +84,6 @@
 		%>
 		<h3>angebotene Artikel:</h3>
 		<%
-			Artikel[] angeboteneArtikel = p.beboteneArtikel();
 			
 			if (angeboteneArtikel.length < 1){
 				%>Der User hat noch keine Artikel angeboten<%

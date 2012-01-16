@@ -8,7 +8,7 @@
 <%@ include file="Header.jsp" %>
 <tr>
 	<td valign=top>
-		<table cellpadding=10><tr><th>Name</th><th>Aktuelles&nbsp;Gebot</th><th>Deadline</th><th>Verk&auml;ufer</th></tr>
+		<table cellpadding=10><tr><th>Name</th><th>Aktuelles&nbsp;Gebot</th><th>Voting</th><th>Deadline</th><th>Verk&auml;ufer</th></tr>
 		<%
 		
 		Artikelliste al = new Artikelliste();
@@ -30,14 +30,13 @@
 					Gebote[] geb = alleA[i].getGebote();
 
 					if (geb.length > 0){
-						for (int a = 0; a < geb.length; a++){
-							%>Gebot: <%=geb[a].getPreis() %><%
-						}
+					%>Gebot: <%=geb[0].getPreis() %><%
 						
 					} else {
 						%><b>Sofort Kaufen</b> <%=alleA[i].getPreis() %><%
 					}
-					%> &euro;</td>
+										%> &euro;</td>
+										<td><%=alleA[i].getVoting() %></td>
 				<td><%=alleA[i].getDeadline() %></td>
 				<td><%
 					Person verkaeufer = new Person(alleA[i].getVerkaeufer()); 

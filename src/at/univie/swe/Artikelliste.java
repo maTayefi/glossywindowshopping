@@ -4,16 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Artikelliste {
-	MySQLConnection c;
-	
-	public Artikelliste(){
-		
-	}
+	MySQLConnection c = null;
 	
 	public  Artikel[] suche (String search) throws SQLException {
 		
+	c =  new MySQLConnection();
+	c.connect();
 		
-		String select1 = "select count(distinct aid) from artikel where deadline > NOW() ";
+		String select1 = "select count(distinct aid) as ccc from artikel where deadline > NOW() ";
 		String select2 = "select distinct aid from artikel where deadline > NOW() ";
 		
 		if (!search.equals("")){ // wenn der Suchstring nicht leer ist, wird er für die selektion verwendet
@@ -23,11 +21,11 @@ public class Artikelliste {
 		select1 = select1 + "   order by deadline ";
 		select2 = select2 + "   order by deadline ";
 	
-		ResultSet ga_count = ((MySQLConnection) c).get(select1);
+		ResultSet ga_count = c.get(select1);
 		ga_count.next();
 		Artikel[] a = new Artikel[ga_count.getInt("ccc")];
 		
-		ResultSet ga = ((MySQLConnection) c).get(select2);
+		ResultSet ga = c.get(select2);
 		
 		int gacount = 0;
 		while(ga.next()){

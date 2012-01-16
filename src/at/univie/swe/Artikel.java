@@ -1,6 +1,5 @@
 package at.univie.swe;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -21,52 +20,70 @@ public class Artikel {
 	private float Preis;
 	private int deadline;
 	private int Verkaeufer;
+	private String Kategorie;
 	public Gebote[] gebote;
+	private int Voting;
 	
 	
-	Connection c = null;
+	MySQLConnection c =  new MySQLConnection();
 	
 	public Artikel(){
 		
 	}
 	public Artikel(int aid) throws SQLException{
-		MySQLConnection mysql = new MySQLConnection();
-		c = mysql.connect();
 		initme(aid);
 	}
-	
+	public int getVoting() throws SQLException {
+		return Voting;
+	}
+
+	public void setVoting(int voting) {
+		Voting = voting;
+	}
+
 	private void initme(int aid) throws SQLException{
 		// Artikel suchen und laden
-		ResultSet rs = ((MySQLConnection) c).get("select * from artikel where aid = '"+ aid +"'");
+		ResultSet rs = c.get("select *, kategorie from artikel, kategorie where aid = '"+ aid +"' and kat = kid");
 		while (rs.next()) {
 			 Name = rs.getString("name");
 			 Aid = rs.getInt("aid");
 			 Preis = rs.getFloat("preis");
 			 Verkaeufer = rs.getInt("verkaeufer");
+			 Kategorie =  rs.getString("kategorie");
 		}
 //		Anzahl der Gebote holen um das Array zu initialisieren
-		ResultSet rs2c = ((MySQLConnection) c).get("select count(*) from gebot where artikel = '"+ aid +"'");
+		ResultSet rs2c =c.get("select count(*) as ccc from gebot where artikel = '"+ aid +"'");
 		rs2c.next();
-		if (rs2c.getInt(1) != 0){
-			gebote = new Gebote[rs2c.getInt(1)];
-		}
-		ResultSet rs2 = ((MySQLConnection) c).get("select * from gebot where artikel = '"+ aid +"'  order by uhrzeit desc ");
+		gebote = new Gebote[rs2c.getInt("ccc")];
+		if (rs2c.getInt("ccc") != 0){
+			ResultSet rs2 = c.get("select * from gebot where artikel = '"+ aid +"'  order by uhrzeit desc ");
+			
+			int gcount = 0;
+			int gid = 0;
+			while (rs2.next()) {
+				gid = rs2.getInt("gid");
+				if (gid != 0){
+					 gebote[gcount] = new Gebote();
+					 gebote[gcount].setGid(gid);
+					 gebote[gcount].setPreis(rs2.getFloat("preis"));
+					 gebote[gcount].setUhrzeit(rs2.getInt("uhrzeit"));
+					 gebote[gcount].setKaeufer(rs2.getInt("kaeufer"));
+					 gebote[gcount].setArtikel(rs2.getInt("artikel"));
+					 gcount++;
+				}
+			}
+		} 
+		ResultSet rs1 = c.get("select avg(vote) from votingartikel where aid = '"+ Aid +"'");
+		rs1.next();
 		
-		int gcount = 0;
-		while (rs2.next()) {
-			 gebote[gcount] = new Gebote();
-			 gebote[gcount].setGid(rs.getInt("gid"));
-			 gebote[gcount].setPreis(rs.getFloat("preis"));
-			 gebote[gcount].setUhrzeit(rs.getInt("uhrzeit"));
-			 gebote[gcount].setKaeufer(rs.getInt("kaeufer"));
-			 gebote[gcount].setArtikel(rs.getInt("artikel"));
-			 gcount++;
-		}
-		 
+		Voting = rs1.getInt(1);
 		 
 	}
 	
-
+	public void doBit(Integer uid, Float bit){
+		c.set("insert into gebot (preis,uhrzeit,kaeufer,artikel) values ('"+Float.toString(bit)+"',NOW(),'"+Integer.toString(uid)+"', '"+Aid+"') ");
+	}
+	
 	public String getName() {
 		return Name;
 	}
@@ -106,6 +123,14 @@ public class Artikel {
 	public void setVerkaeufer(int verkaeufer) {
 		Verkaeufer = verkaeufer;
 	}
+	
+	public String getKategorie() {
+		return Kategorie;
+	}
+
+	public void setKategorie(String kategorie) {
+		Kategorie = kategorie;
+	}
 
 	public Gebote[] getGebote() {
 		return gebote;
@@ -113,6 +138,21 @@ public class Artikel {
 
 	public void setGebote(Gebote[] gebote) {
 		this.gebote = gebote;
+	}
+	
+	public Kategorie[] getKats() throws SQLException{
+		ResultSet rsc = c.get("select count(*) as ccc from kategorie order by kategorie");
+		rsc.next();
+		Kategorie[] k = new Kategorie[rsc.getInt("ccc")];
+		
+		ResultSet rs = c.get("select * from kategorie order by kategorie");
+		int kcount = 0;
+		while (rs.next()) {
+			 k[kcount].setName(rs.getString("kategorie"));
+			 k[kcount].setKid(rs.getInt("kid"));
+			 kcount++;
+		}
+		return k;
 	}
 	
 }

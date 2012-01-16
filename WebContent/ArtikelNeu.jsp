@@ -16,6 +16,15 @@
 	<form method=get >
 	<b>Artikelname:</b> <input type=text name=newartikelname value=''><br> 
 	<b>Sofort-Kaufen-Preis:</b> <input type=text name=newartikelprice value=''><br> 
+	<b>Kartegorie:</b> 
+	<select name=newartikelkat>
+		<% 
+			Artikel a = new Artikel();
+			Kategorie[] k = a.getKats();
+			for (int i = 0; i < k.length ; i++) {
+		%>		<option value="<%=k[i].getKid()%>"><%=k[i].getName()%></option>
+		<% } %>
+	</select><br> 
 	<b>Deadline ist in 1 Woche</b><br> 
 	<input type=submit value='Speichern'><br> 
 	</form>
