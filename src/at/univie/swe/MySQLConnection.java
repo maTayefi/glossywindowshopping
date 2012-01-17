@@ -10,19 +10,12 @@ import java.util.Properties;
 public class MySQLConnection implements DBConnection {
 	ResultSet rs = null;
 	Statement statement = null;
-	Connection c = null;
+	static Connection c = null;
 	
 	boolean makedone = false;
 	
 	public MySQLConnection() {
-		if (c != null) {
-	      try {
-	        c.close();
-	      } catch (SQLException ex) {
-	        ex.printStackTrace();
-	        System.out.println("Problem closing the connection");
-	      }
-	    }
+		
 		connect();
 	}
 
@@ -32,7 +25,7 @@ public class MySQLConnection implements DBConnection {
 		try {
 			statement = c.createStatement();
 			rs = statement.executeQuery(a);
-			
+			//statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -74,9 +67,11 @@ public class MySQLConnection implements DBConnection {
 		c = cp.getConnection();
 		*/
 			try {
-				c = DriverManager.getConnection("jdbc:mysql://mysql5.univie.ac.at/a1047034", "a1047034", "swe11");
-				//c = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
-			} catch (SQLException e1) {
+				if (c == null) {
+					c = DriverManager.getConnection("jdbc:mysql://mysql5.univie.ac.at/a1047034", "a1047034", "swe11");
+					//c = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
+				}
+				} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -85,6 +80,8 @@ public class MySQLConnection implements DBConnection {
 		try { // If Database is not filled: fill
 			statement = c.createStatement();
 			rs = statement.executeQuery("select * from artikel limit 1");
+			rs.close();
+			
 		} catch (SQLException e) {
 			System.out.println("Datenbank wird gefuellt\n");
 			fill_db();

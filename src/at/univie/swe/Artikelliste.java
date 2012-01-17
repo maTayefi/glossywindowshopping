@@ -9,7 +9,6 @@ public class Artikelliste {
 	public  Artikel[] suche (String search) throws SQLException {
 		
 	c =  new MySQLConnection();
-	c.connect();
 		
 		String select1 = "select count(distinct aid) as ccc from artikel where deadline > NOW() ";
 		String select2 = "select distinct aid from artikel where deadline > NOW() ";
@@ -25,6 +24,7 @@ public class Artikelliste {
 		ga_count.next();
 		Artikel[] a = new Artikel[ga_count.getInt("ccc")];
 		ga_count.close();
+		
 		ResultSet ga = c.get(select2);
 		
 		int gacount = 0;
