@@ -74,13 +74,13 @@ public class MySQLConnection implements DBConnection {
 		c = cp.getConnection();
 		*/
 			try {
-				c = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
+				c = DriverManager.getConnection("jdbc:mysql://mysql5.univie.ac.at/a1047034", "a1047034", "swe11");
+				//c = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		
-	//c = DriverManager.getConnection("jdbc:mysql://mysql5.univie.ac.at/a1047034", "a1047034", "swe11");
 		
 		try { // If Database is not filled: fill
 			statement = c.createStatement();
