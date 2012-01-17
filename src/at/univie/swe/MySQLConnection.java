@@ -14,7 +14,15 @@ public class MySQLConnection implements DBConnection {
 	
 	boolean makedone = false;
 	
-	public MySQLConnection(){
+	public MySQLConnection() {
+		if (c != null) {
+	      try {
+	        c.close();
+	      } catch (SQLException ex) {
+	        ex.printStackTrace();
+	        System.out.println("Problem closing the connection");
+	      }
+	    }
 		connect();
 	}
 
@@ -24,6 +32,7 @@ public class MySQLConnection implements DBConnection {
 		try {
 			statement = c.createStatement();
 			rs = statement.executeQuery(a);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -36,6 +45,8 @@ public class MySQLConnection implements DBConnection {
 		try {
 			statement = c.createStatement();
 			statement.executeUpdate(a);
+			statement.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,7 +54,8 @@ public class MySQLConnection implements DBConnection {
 	}
 
 	@Override
-	public Connection connect() {
+	public Connection connect(){
+		
 		try {
 		      Class.forName("com.mysql.jdbc.Driver" ).newInstance();
 		  } catch (Exception e) {
@@ -51,17 +63,24 @@ public class MySQLConnection implements DBConnection {
 		      e.printStackTrace();
 		      return null;
 		  }
-		
-		String url = "jdbc:mysql://mysql5.univie.ac.at/a1047034";
+		/*
+		String url = "jdbc:mysql://localhost/test";
 		Properties p = new Properties();
-		p.setProperty("user", "a1047034");
-		p.setProperty("password", "swe11");
+		p.setProperty("user", "root");
+		p.setProperty("password", "");
 		p.setProperty("jdcbCompliantTruncation", "false");
 		
 		ConnectionPool cp = new ConnectionPool("com.mysql.jdbc.Driver",url,p);
 		c = cp.getConnection();
-		//c = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
-		//c = DriverManager.getConnection("jdbc:mysql://mysql5.univie.ac.at/a1047034", "a1047034", "swe11");
+		*/
+			try {
+				c = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		
+	//c = DriverManager.getConnection("jdbc:mysql://mysql5.univie.ac.at/a1047034", "a1047034", "swe11");
 		
 		try { // If Database is not filled: fill
 			statement = c.createStatement();

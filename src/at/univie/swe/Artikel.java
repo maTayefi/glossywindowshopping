@@ -25,7 +25,7 @@ public class Artikel {
 	private int Voting;
 	
 	
-	MySQLConnection c =  new MySQLConnection();
+	public MySQLConnection c =  new MySQLConnection();
 	
 	public Artikel(){
 		
@@ -51,6 +51,7 @@ public class Artikel {
 			 Verkaeufer = rs.getInt("verkaeufer");
 			 Kategorie =  rs.getString("kategorie");
 		}
+		rs.close();
 //		Anzahl der Gebote holen um das Array zu initialisieren
 		ResultSet rs2c =c.get("select count(*) as ccc from gebot where artikel = '"+ aid +"'");
 		rs2c.next();
@@ -73,11 +74,13 @@ public class Artikel {
 				}
 			}
 		} 
+		rs2c.close();
+		
 		ResultSet rs1 = c.get("select avg(vote) from votingartikel where aid = '"+ Aid +"'");
 		rs1.next();
 		
 		Voting = rs1.getInt(1);
-		 
+		rs1.close(); 
 	}
 	
 	public void doBit(Integer uid, Float bit){
@@ -141,9 +144,10 @@ public class Artikel {
 	}
 	
 	public Kategorie[] getKats() throws SQLException{
-		ResultSet rsc = c.get("select count(*) as ccc from kategorie order by kategorie");
+		ResultSet rsc = c.get("select count(*) from kategorie order by kategorie");
 		rsc.next();
-		Kategorie[] k = new Kategorie[rsc.getInt("ccc")];
+		Kategorie[] k = new Kategorie[rsc.getInt(1)];
+		rsc.close();
 		
 		ResultSet rs = c.get("select * from kategorie order by kategorie");
 		int kcount = 0;
@@ -152,9 +156,24 @@ public class Artikel {
 			 k[kcount].setKid(rs.getInt("kid"));
 			 kcount++;
 		}
+		rs.close();
 		return k;
 	}
 	
+	public Integer[] getEnd() throws SQLException{
+		Integer[] out = new Integer[100];
+		ResultSet rsc = c.get("select distinct deadline, count(*) from artikel group by deadline order by 1");
+		int i = 0;
+		while (rsc.next()){
+			out[i++]= rsc.getInt(2);
+		}
+		Integer[] out2 = new Integer[i];
+		for(int a = 0;a < i;a++){
+			out2[a]=out[a];
+		}
+		rsc.close();
+		return out2;
+	}
 }
 
 

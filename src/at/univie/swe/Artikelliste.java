@@ -24,7 +24,7 @@ public class Artikelliste {
 		ResultSet ga_count = c.get(select1);
 		ga_count.next();
 		Artikel[] a = new Artikel[ga_count.getInt("ccc")];
-		
+		ga_count.close();
 		ResultSet ga = c.get(select2);
 		
 		int gacount = 0;
@@ -32,6 +32,7 @@ public class Artikelliste {
 			a[gacount] = new Artikel(ga.getInt("aid"));
 			gacount++;
 		}
+		ga.close();
 		return a;
 	}
 

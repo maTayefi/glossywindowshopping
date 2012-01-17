@@ -57,15 +57,15 @@ public class Person {
 			 Typ = rs.getString("typ");
 						
 		}
-		
+		rs.close();
 		ResultSet rs1 = c.get("select avg(vote) from votingverkaeufer where vid = '"+ Pid +"'");
 		rs1.next();
 		VotingVerkaeufer = rs1.getInt(1);
-	
+		rs1.close();
 		ResultSet rs2 = c.get("select avg(vote) from votingkaeufer where kid = '"+ Pid +"'");
 		rs2.next();
 		VotingKaeufer = rs2.getInt(1);
-		
+		rs2.close();
 	}
 	
 	public String getName() {
@@ -107,13 +107,14 @@ public class Person {
 		ResultSet ga_count = ((MySQLConnection) c).get("select count(distinct a.aid) as ccc from artikel a, gebot g where a.deadline < NOW() and a.aid = g.artikel and g.kaeufer = '"+Pid+"'");
 		ga_count.next();
 		Artikel[] a = new Artikel[ga_count.getInt("ccc")];
-		
+		ga_count.close();
 		ResultSet ga = ((MySQLConnection) c).get("select distinct a.aid from artikel a, gebot g where a.deadline < NOW() and a.aid = g.artikel and g.kaeufer = '"+Pid+"'");
 		int gacount = 0;
 		while(ga.next()){
 			a[gacount] = new Artikel(ga.getInt("aid"));
 			gacount++;
 		}
+		ga.close();
 		return a;
 	}
 	
@@ -121,13 +122,14 @@ public class Person {
 		ResultSet ga_count = ((MySQLConnection) c).get("select count(distinct a.aid) as ccc from artikel a, gebot g where a.aid = g.artikel and g.kaeufer = '"+Pid+"'");
 		ga_count.next();
 		Artikel[] a = new Artikel[ga_count.getInt("ccc")];
-		
+		ga_count.close();
 		ResultSet ga = ((MySQLConnection) c).get("select distinct a.aid from artikel a, gebot g where a.aid = g.artikel and g.kaeufer = '"+Pid+"'");
 		int gacount = 0;
 		while(ga.next()){
 			a[gacount] = new Artikel(ga.getInt("aid"));
 			gacount++;
 		}
+		ga.close();
 		return a;
 	}
 	
@@ -135,13 +137,14 @@ public class Person {
 		ResultSet ga_count = ((MySQLConnection) c).get("select count(distinct aid) as ccc from artikel a where verkaeufer =  '"+Pid+"'");
 		ga_count.next();
 		Artikel[] a = new Artikel[ga_count.getInt("ccc")];
-		
+		ga_count.close();
 		ResultSet ga = ((MySQLConnection) c).get("select distinct aid from artikel a where verkaeufer =  '"+Pid+"'");
 		int gacount = 0;
 		while(ga.next()){
 			a[gacount] = new Artikel(ga.getInt("aid"));
 			gacount++;
 		}
+		ga.close();
 		return a;
 	}
 }
