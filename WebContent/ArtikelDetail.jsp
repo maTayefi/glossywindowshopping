@@ -33,6 +33,12 @@
 				<tr>
 					<td><h2><%=myArt.getName() %></h2></td>
 				</tr>
+				<tr><td>Verkäufer: 
+					<% Person P = new Person(myArt.getVerkaeufer());
+					%>
+					<%= P.getName()
+					 %></td>
+				</tr>
 				<tr>
 					<td><h3>Kategorie: <%=myArt.getKategorie() %></h3></td>
 				</tr>
