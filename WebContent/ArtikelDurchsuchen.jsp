@@ -37,7 +37,9 @@
 					}
 										%> &euro;</td>
 										<td><%=alleA[i].getVoting() %></td>
-				<td><%=alleA[i].getDeadline() %></td>
+				<td>
+				<%	String d = alleA[i].getDeadline(); %>
+				<%=d.substring(8,10)+"."+d.substring(5,7)+"."+d.substring(0,4)+"&nbsp;"+d.substring(11,16) %></td>
 				<td><%
 					Person verkaeufer = new Person(alleA[i].getVerkaeufer()); 
 					%>

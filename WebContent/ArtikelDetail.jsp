@@ -23,9 +23,9 @@
 			// einen Euro höher bieten
 			if (geb.length > 0)
 				altpreis = geb[0].getPreis();
-			%> <tr><td><%=Float.valueOf(request.getParameter("g"))%></td></tr><%
 			myArt.doBit(Integer.valueOf(session.getAttribute("uid").toString()),Float.valueOf(request.getParameter("g")));
-			
+			myArt = new Artikel(Integer.parseInt(request.getParameter("aid")));
+			geb = myArt.getGebote();
 		}
 		
 			%>
@@ -39,23 +39,26 @@
 				
 				<tr>
 					<td><%
-						// check if Gebote exists
-						if (geb.length > 0){
-							%>Aktuelles Gebot: <%=geb[0].getPreis() %> &euro;
-							<% if (session.getAttribute("uid") != null) {%>
-								<a href='?aid=<%=request.getParameter("aid") %>&g=<%=(geb[0].getPreis()+1)%>'>Jetzt &uuml;berbieten</a>
-							<% } else { %>
-								<a href='?a=login&aid=<%=request.getParameter("aid") %>'>Jetzt einloggen um zu bieten</a>
-							<% }
+						if (!myArt.abgelaufen){
+							// check if Gebote exists
 							
-						} else {
-							%><b>Sofort Kaufen</b> f&uuml;r <%=myArt.getPreis()  %> &euro;
-							<br> oder 
-							<% if (session.getAttribute("uid") != null) {%>
-								<a href='?aid=<%=request.getParameter("aid") %>&g=<%=(myArt.getPreis()+1)%>'>Jetzt bieten</a>
-							<% } else { %>
-								<a href='?a=login&aid=<%=request.getParameter("aid") %>'>Jetzt einloggen um zu bieten</a>
-							<% }
+							if (geb.length > 0){
+								%>Aktuelles Gebot: <%=geb[0].getPreis() %> &euro;
+								<% if (session.getAttribute("uid") != null) {%>
+									<a href='?aid=<%=request.getParameter("aid") %>&g=<%=(geb[0].getPreis()+1)%>'>Jetzt &uuml;berbieten</a>
+								<% } else { %>
+									<a href='?a=login&aid=<%=request.getParameter("aid") %>'>Jetzt einloggen um zu bieten</a>
+								<% }
+								
+							} else {
+								%><b>Sofort Kaufen</b> f&uuml;r <%=myArt.getPreis()  %> &euro;
+								<br> oder 
+								<% if (session.getAttribute("uid") != null) {%>
+									<a href='?aid=<%=request.getParameter("aid") %>&g=<%=(myArt.getPreis()+1)%>'>Jetzt bieten</a>
+								<% } else { %>
+									<a href='?a=login&aid=<%=request.getParameter("aid") %>'>Jetzt einloggen um zu bieten</a>
+								<% }
+							}
 						}
 						%> 
 					</td>

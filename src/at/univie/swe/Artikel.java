@@ -18,11 +18,12 @@ public class Artikel {
 	private String Name;
 	private int Aid;
 	private float Preis;
-	private int deadline;
+	private String deadline;
 	private int Verkaeufer;
 	private String Kategorie;
 	public Gebote[] gebote;
 	private int Voting;
+	public boolean abgelaufen = false;
 	
 	
 	public MySQLConnection c =  new MySQLConnection();
@@ -47,11 +48,23 @@ public class Artikel {
 		while (rs.next()) {
 			 Name = rs.getString("name");
 			 Aid = rs.getInt("aid");
+			 deadline = rs.getString("deadline");
 			 Preis = rs.getFloat("preis");
 			 Verkaeufer = rs.getInt("verkaeufer");
 			 Kategorie =  rs.getString("kategorie");
 		}
 		rs.close();
+		
+		// checken ob der Artikel schon abgelaufen ist
+		try {
+			ResultSet rsa = c.get("select 'true' from artikel where aid = '"+ aid +"' and deadline <= NOW()");
+			if (rsa.next())
+				abgelaufen = true;
+			rs.close();
+		} finally {
+			
+		}
+		
 //		Anzahl der Gebote holen um das Array zu initialisieren
 		ResultSet rs2c =c.get("select count(*) as ccc from gebot where artikel = '"+ aid +"'");
 		rs2c.next();
@@ -111,11 +124,11 @@ public class Artikel {
 		Preis = preis;
 	}
 
-	public int getDeadline() {
+	public String getDeadline() {
 		return deadline;
 	}
 
-	public void setDeadline(int deadline) {
+	public void setDeadline(String deadline) {
 		this.deadline = deadline;
 	}
 
@@ -146,15 +159,19 @@ public class Artikel {
 	public Kategorie[] getKats() throws SQLException{
 		ResultSet rsc = c.get("select count(*) from kategorie order by kategorie");
 		rsc.next();
-		Kategorie[] k = new Kategorie[rsc.getInt(1)];
+		int size = rsc.getInt(1);
+		Kategorie[] k = new Kategorie[size];
 		rsc.close();
 		
 		ResultSet rs = c.get("select * from kategorie order by kategorie");
 		int kcount = 0;
 		while (rs.next()) {
-			 k[kcount].setName(rs.getString("kategorie"));
-			 k[kcount].setKid(rs.getInt("kid"));
-			 kcount++;
+			if (kcount < size){
+				k[kcount] = new Kategorie();
+				k[kcount].setName(rs.getString("kategorie"));
+				k[kcount].setKid(rs.getInt("kid"));
+			}
+			kcount++;
 		}
 		rs.close();
 		return k;
