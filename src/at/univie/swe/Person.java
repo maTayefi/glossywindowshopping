@@ -9,15 +9,10 @@ public class Person {
 	private String Passwort;
 	private int Pid;
 	private String Typ;
-	private int VotingVerkaeufer;
-	private int VotingKaeufer;
+	private double VotingVerkaeufer;
+	private double VotingKaeufer;
 	
 	MySQLConnection c;
-	
-	// Das ist ein 2.Test
-	// noch ein test!!!!
-	// Schon wieder ein Test
-	
 	
 	public Person(int pid) throws SQLException {
 		c = new MySQLConnection();
@@ -54,17 +49,16 @@ public class Person {
 			 Name = rs.getString("name");
 			 Passwort = rs.getString("passwort");
 			 Pid = rs.getInt("pid");
-			 Typ = rs.getString("typ");
-						
+			 Typ = rs.getString("typ");				
 		}
 		rs.close();
 		ResultSet rs1 = c.get("select avg(vote) from votingverkaeufer where vid = '"+ Pid +"'");
 		rs1.next();
-		VotingVerkaeufer = rs1.getInt(1);
+		VotingVerkaeufer = rs1.getDouble(1);
 		rs1.close();
 		ResultSet rs2 = c.get("select avg(vote) from votingkaeufer where kid = '"+ Pid +"'");
 		rs2.next();
-		VotingKaeufer = rs2.getInt(1);
+		VotingKaeufer = rs2.getDouble(1);
 		rs2.close();
 	}
 	
@@ -86,20 +80,20 @@ public class Person {
 	public void setPid(int pid) {
 		Pid = pid;
 	}
-	public int getVotingVerkaeufer() throws SQLException {
-		return VotingVerkaeufer;
+	public double getVotingVerkaeufer() throws SQLException {
+		return Math.round((VotingVerkaeufer* 100 ) / 100.);
 
 	}
 
-	public void setVotingVerkaeufer(int votingVerkaeufer) {
+	public void setVotingVerkaeufer(double votingVerkaeufer) {
 		VotingVerkaeufer = votingVerkaeufer;
 	}
 
-	public int getVotingKaeufer() throws SQLException {
+	public double getVotingKaeufer() throws SQLException {
 		return VotingKaeufer;
 	}
 
-	public void setVotingKaeufer(int votingKaeufer) {
+	public void setVotingKaeufer(double votingKaeufer) {
 		VotingKaeufer = votingKaeufer;
 	}
 	
