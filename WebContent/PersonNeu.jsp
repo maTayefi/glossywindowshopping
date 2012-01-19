@@ -17,8 +17,8 @@
 <tr>
 	<td valign=top>
 	<form method=get >
-	<b>Username:</b> <input type=text name=newusername value=''><br>
-	<b>Passwort:</b> <input type=text name=newpasswort value=''><br> 
+	<b>Username:</b> <input type=text name=newusername><br>
+	<b>Passwort:</b> <input type=text name=newpasswort><br> 
 	<input type=submit value='Registrieren'><br>
 	</form>
 	</td>
