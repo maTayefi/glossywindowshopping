@@ -6,10 +6,6 @@
 
 <%@ include file="Header.jsp" %>
 
-<%
-			Person p = new Person(Integer.valueOf(request.getParameter("rid")));
-			
-				%>
 <tr style='height:30px;'>
 	<td><a href='?'>Zur Startseite</a></td>
 </tr>
@@ -21,10 +17,9 @@
 <tr>
 	<td valign=top>
 	<form method=get >
-	<input type=hidden name=changepid value='<%=request.getParameter("rid") %>'>
-	<b>Username:</b> <input type=text name=changeusername value='<%=p.getName() %>'><br> 
-	<b>Passwort:</b> <input type=text name=changepasswort value='<%=p.getPasswort() %>'><br> 
-	<input type=submit value='Speichern'><br> 
+	<b>Username:</b> <input type=text name=newusername value=''><br>
+	<b>Passwort:</b> <input type=text name=newpasswort value=''><br> 
+	<input type=submit value='Registrieren'><br>
 	</form>
 	</td>
 </tr>
