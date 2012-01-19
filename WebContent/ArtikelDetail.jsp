@@ -42,7 +42,20 @@
 				<tr>
 					<td><h3>Kategorie: <%=myArt.getKategorie() %></h3></td>
 				</tr>
-				
+				<tr>
+				<td>
+				<h3>Voting: <%=myArt.getVoting() %></h3> 
+	Bewerten Sie diesen Artikel: 
+	<a href="?aid=<%=request.getParameter("aid")%>&voteArtikel=<%=request.getParameter("aid")%>&vote=0">0</a>&nbsp;
+	<a href="?aid=<%=request.getParameter("aid")%>&voteArtikel=<%=request.getParameter("aid")%>&vote=1">1</a>&nbsp;
+	<a href="?aid=<%=request.getParameter("aid")%>&voteArtikel=<%=request.getParameter("aid")%>&vote=2">2</a>&nbsp;
+	<a href="?aid=<%=request.getParameter("aid")%>&voteArtikel=<%=request.getParameter("aid")%>&vote=3">3</a>&nbsp;
+	<a href="?aid=<%=request.getParameter("aid")%>&voteArtikel=<%=request.getParameter("aid")%>&vote=4">4</a>&nbsp;
+	<a href="?aid=<%=request.getParameter("aid")%>&voteArtikel=<%=request.getParameter("aid")%>&vote=5">5</a>&nbsp;
+	<br><br>
+	
+	</td>
+				</tr>
 				<tr>
 					<td><%
 						if (!myArt.abgelaufen){
@@ -57,10 +70,10 @@
 								<% }
 								
 							} else {
-								%><b>Sofort Kaufen</b> f&uuml;r <%=myArt.getPreis()  %> &euro;
+								%><b>Sofort Kaufen</b> f&uuml;r <%=myArt.getPreis()  %> &euro; <a href='?aid=<%=request.getParameter("aid") %>&g=<%=((myArt.getPreis()))%>&kaufen=true'>Jetzt kaufen</a>
 								<br> oder 
 								<% if (session.getAttribute("uid") != null) {%>
-									<a href='?aid=<%=request.getParameter("aid") %>&g=<%=(myArt.getPreis()+1)%>'>Jetzt bieten</a>
+									<a href='?aid=<%=request.getParameter("aid") %>&g=<%=((myArt.getPreis()/2)+1)%>'>Jetzt bieten (<%=Math.round((myArt.getPreis()/2)+1)%>.00)</a>
 								<% } else { %>
 									<a href='?a=login&aid=<%=request.getParameter("aid") %>'>Jetzt einloggen um zu bieten</a>
 								<% }
