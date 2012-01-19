@@ -53,6 +53,16 @@ public class GlossyWindowShopping extends HttpServlet implements SingleThreadMod
 			
 		}
 		
+		// neuen user anmelden
+		if ( request.getParameter("newusername") != null && request.getParameter("newpasswort") != null ) { 
+			
+			System.out.println("insert into person (name,passwort) values ('"+request.getParameter("newusername")+"','"+request.getParameter("newpasswort")+"')");
+			
+			MySQLConnection t = new MySQLConnection();
+			t.set("insert into person (name,passwort) values ('"+request.getParameter("newusername")+"','"+request.getParameter("newpasswort")+"')");
+			
+		}
+		
 		// userdatenupdate
 		if ( request.getParameter("changeusername") != null && request.getParameter("changepasswort") != null && request.getParameter("changepid") != null) { 
 			

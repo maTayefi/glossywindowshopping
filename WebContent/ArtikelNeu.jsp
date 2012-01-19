@@ -26,7 +26,7 @@
 		<% } %>
 	</select><br> 
 	<b>Deadline ist in 1 Woche</b><br> 
-	<input type=submit value='Speichern'><br> 
+	<input type=submit value='Speichern'><br>
 	</form>
 	</td>
 </tr>
