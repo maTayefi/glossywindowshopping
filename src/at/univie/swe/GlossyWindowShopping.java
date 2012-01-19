@@ -99,6 +99,9 @@ public class GlossyWindowShopping extends HttpServlet implements SingleThreadMod
 		if (request.getParameter("a")!=null && request.getParameter("a").equals("login") && !ignorelogin){
 			getServletConfig().getServletContext().getRequestDispatcher(
 			        "/Login.jsp").forward(request,response);
+		} else if (request.getParameter("a")!=null && request.getParameter("a").equals("registrieren")){
+			getServletConfig().getServletContext().getRequestDispatcher(
+			        "/PersonNeu.jsp").forward(request,response);
 		} else if (request.getParameter("a")!=null && request.getParameter("a").equals("searchartikel")){
 			getServletConfig().getServletContext().getRequestDispatcher(
 			        "/ArtikelDurchsuchen.jsp").forward(request,response);
