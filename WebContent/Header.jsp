@@ -16,7 +16,8 @@
 	<a href='?pid=<%=session.getAttribute("uid")%>'>Meine Seite</a> (<a href='?rid=<%=session.getAttribute("uid")%>'>bearbeiten</a>)<br>
 	<a href='?a=artikelneu'>Neuen Artikel erstellen</a>
 	<% } else { %>
-	Sie sind nicht eingeloggt! <a href='?a=login'>EINLOGGEN</a>
+	Sie sind nicht eingeloggt! <a href='?a=login'>EINLOGGEN</a><br>
+	<a href='?a=registrieren'>Registrieren</a>
 	<% } %>
 	</td>
 </tr>
