@@ -39,6 +39,4 @@ public class Artikelliste {
 		ga.close();
 		return a;
 	}
-
-	
 }
