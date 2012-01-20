@@ -10,10 +10,6 @@
 			Person p = new Person(Integer.parseInt(request.getParameter("pid")));
 			
 				%>
-<tr style='height:30px;'>
-	<td><a href='?'>Zur Startseite</a></td>
-</tr>
-
 <tr>
 	<td valign=top>
 	<h2>User: <%=p.getName() %></h2> 
