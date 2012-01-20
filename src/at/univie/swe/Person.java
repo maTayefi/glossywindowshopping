@@ -90,7 +90,7 @@ public class Person {
 	}
 
 	public double getVotingKaeufer() throws SQLException {
-		return VotingKaeufer;
+		return Math.round((VotingKaeufer*100)/100.);
 	}
 
 	public void setVotingKaeufer(double votingKaeufer) {
