@@ -7,13 +7,31 @@
 
 <%@ include file="Header.jsp" %>
 <tr>
+	<td valign=top colspan=2>
+	<table width=100%><tr><td valign=top>
+		<form>
+		<input type=hidden name=a value="searchartikel">
+		Artikel durchsuchen: <input type=text name=search value="<%=(request.getParameter("search") != null?request.getParameter("search"):"")%>">
+		<input type=submit value="suchen">
+		</form>
+		<br><br>
+		<b>Kategorien</b><br>
+		<%
+			Artikel a = new Artikel();
+			Kategorie[] ak = a.getKats();
+			
+			for (int i = 0; i < ak.length; i++){
+				%><a href="?a=searchartikel&kat=<%=ak[i].getKid() %>"><%=ak[i].getName() %></a><br><%
+			}
+		%>
+	</td>
 	<td valign=top>
 		<table cellpadding=10><tr><th>Name</th><th>Aktuelles&nbsp;Gebot</th><th>Voting</th><th>Deadline</th><th>Verk&auml;ufer</th></tr>
 		<%
 		
 		Artikelliste al = new Artikelliste();
 		
-		Artikel[] alleA = al.suche("");
+		Artikel[] alleA = al.suche((request.getParameter("search") != null?request.getParameter("search"):""),(request.getParameter("kat") != null?Integer.valueOf(request.getParameter("kat")):0));
 		
 		String grey = "dddddd";
 		
@@ -49,7 +67,7 @@
 			<%
 		} %>
 		</table>
-	
+	</td></tr></table>
 	</td>
 </tr>
 <%@ include file="Footer.jsp" %>
