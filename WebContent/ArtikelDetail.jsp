@@ -36,8 +36,8 @@
 				<tr><td>Verkäufer: 
 					<% Person P = new Person(myArt.getVerkaeufer());
 					%>
-					<%= P.getName()
-					 %></td>
+					<a href='?pid=<%=P.getPid()%>'> <%= P.getName()
+					 %></a></td>
 				</tr>
 				<tr>
 					<td><h3>Kategorie: <%=myArt.getKategorie() %></h3></td>

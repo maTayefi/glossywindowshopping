@@ -25,6 +25,27 @@
 	
 <tr>
 	<td>Umsatz im Monat</td>
-	<td><img src="http://chart.apis.google.com/chart?chxr=0,0,160&chxt=x&chbh=a&chs=440x220&cht=bhs&chco=4D89F9,C6D9FD&chds=0,160,0,160&chd=t:10,50,60,80,40,60,30|&chtt=Horizontal+bar+chart" width="440" height="220" alt="Horizontal bar chart" /></td>
+	<% Person p = new Person(Integer.parseInt(request.getParameter("pid")));
+	Artikel[] angeboteneArtikel = p.angeboteneArtikel();
+	Artikel[] verkaufteArtikel = new Artikel[50];
+	for(int j=0; j<angeboteneArtikel.length ;j++){
+		if(angeboteneArtikel[j].abgelaufen)
+			verkaufteArtikel[j] = angeboteneArtikel[j];
+	}
+	double gesamtumsatz = 0;
+	for(int i = 0; i< verkaufteArtikel.length;i++){
+			gesamtumsatz += verkaufteArtikel[i].getPreis();			
+	}%>
+	<td>Gesamtumsatz:<%=gesamtumsatz %>!</td>
+	
+	<% double u1, u2, u3, u4 = 0;
+	String d;
+	for(int i = 0; i<verkaufteArtikel.length; i++){
+		d = verkaufteArtikel[i].getDeadline();
+		if(d.substring(5,7)=="12"){u1 += verkaufteArtikel[i].getPreis();
+		}			
+	%>
+	<td>Umsatz im Dezember = <%= u1 %></td>
+	<td><img src="http://chart.apis.google.com/chart?chxr=0,0,160&chxt=x&chbh=a&chs=440x220&cht=bhs&chco=4D89F9,C6D9FD&chds=0,160,0,160&chd=t:<%= %>,50,60,80,40,60,30|&chtt=Horizontal+bar+chart" width="440" height="220" alt="Horizontal bar chart" /></td>
 
 <%@ include file="Footer.jsp" %>
