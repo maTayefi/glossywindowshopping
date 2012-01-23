@@ -24,7 +24,7 @@
 	
 	
 <tr>
-	<td><br><h2>Umsatz im Monat</h2></td>
+	<td><br><h2>Umsatz im Monat </h2></td>
 	<% Person p = new Person(Integer.parseInt(session.getAttribute("uid").toString()));
 	Artikel[] angeboteneArtikel = p.angeboteneArtikel();
 	Artikel[] verkaufteArtikel = p.verkaufteArtikel();
