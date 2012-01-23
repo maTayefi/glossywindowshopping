@@ -141,4 +141,19 @@ public class Person {
 		ga.close();
 		return a;
 	}
+	
+	public Artikel[] verkaufteArtikel () throws SQLException {
+		ResultSet ga_count = ((MySQLConnection) c).get("select count(distinct aid) as ccc from artikel a where verkaeufer =  '"+Pid+"' and deadline < NOW()");
+		ga_count.next();
+		Artikel[] a = new Artikel[ga_count.getInt("ccc")];
+		ga_count.close();
+		ResultSet ga = ((MySQLConnection) c).get("select distinct aid from artikel a where verkaeufer =  '"+Pid+"' and deadline < NOW()");
+		int gacount = 0;
+		while(ga.next()){
+			a[gacount] = new Artikel(ga.getInt("aid"));
+			gacount++;
+		}
+		ga.close();
+		return a;
+	}
 }
