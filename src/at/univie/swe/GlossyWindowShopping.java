@@ -105,7 +105,7 @@ public class GlossyWindowShopping extends HttpServlet implements SingleThreadMod
 		if ( request.getParameter("newartikelname") != null && request.getParameter("newartikelprice") != null ) { 
 			
 			MySQLConnection t = new MySQLConnection();
-			t.set("insert into artikel (name,preis,deadline,verkaeufer,kat) values ('"+request.getParameter("newartikelname")+"','"+request.getParameter("newartikelprice")+"',DATE_ADD(NOW(), INTERVAL 7 DAY),'"+session.getAttribute("uid")+"','"+session.getAttribute("newartikelkat")+"')");
+			t.set("insert into artikel (name,preis,deadline,verkaeufer,kat) values ('"+request.getParameter("newartikelname")+"','"+request.getParameter("newartikelprice")+"',DATE_ADD(NOW(), INTERVAL 7 DAY),'"+session.getAttribute("uid")+"','"+request.getParameter("newartikelkat")+"')");
 			
 		}
 				

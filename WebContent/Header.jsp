@@ -5,6 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>GlossyWindowShopping</title>
+
+<style>
+body,td {
+	font-family:Verdana;
+	font-size:12px;
+}
+</style>
 </head>
 <body link=blue vlink=blue alink=blue>
 <table width=100% style='height:500px;border:2px solid blue;'>    

@@ -70,12 +70,12 @@
 								<% }
 								
 							} else {
-								if (session.getAttribute("uid") != null) {
+								%><b>Sofort Kaufen</b> f&uuml;r <%=myArt.getPreis()  %> &euro; <%
+								if (session.getAttribute("uid") != null) {%>
 									
-									%><b>Sofort Kaufen</b> f&uuml;r <%=myArt.getPreis()  %> &euro; <a href='?aid=<%=request.getParameter("aid") %>&g=<%=((myArt.getPreis()))%>&kaufen=true'>Jetzt kaufen</a>
-								<%}
-								else{%> 
-								<a href='?a=login&aid=<%=request.getParameter("aid") %>'>Jetzt einloggen um zu kaufen</a>
+									<a href='?aid=<%=request.getParameter("aid") %>&g=<%=((myArt.getPreis()))%>&kaufen=true'>Jetzt kaufen</a>
+								<%}	else {%> 
+									<a href='?a=login&aid=<%=request.getParameter("aid") %>'>Jetzt einloggen um zu kaufen</a>
 								<%} %>
 								<br> oder 
 								<% if (session.getAttribute("uid") != null) {%>
