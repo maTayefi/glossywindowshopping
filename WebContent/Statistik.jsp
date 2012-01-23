@@ -35,7 +35,7 @@
 	}%>
 </tr>
 <tr>
-<td>Gesamtumsatz:<%=gesamtumsatz %>!
+<td>Gesamtumsatz: <%=gesamtumsatz %>!
 	
 	<% 
 	double u1 = 0, u2 = 0, u3 = 0, u4 = 0;
