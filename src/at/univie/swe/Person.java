@@ -81,7 +81,7 @@ public class Person {
 		Pid = pid;
 	}
 	public double getVotingVerkaeufer() throws SQLException {
-		return Math.round((VotingVerkaeufer* 100 ) / 100.);
+		return VotingVerkaeufer;
 
 	}
 
@@ -90,7 +90,7 @@ public class Person {
 	}
 
 	public double getVotingKaeufer() throws SQLException {
-		return Math.round((VotingKaeufer*100)/100.);
+		return VotingKaeufer;
 	}
 
 	public void setVotingKaeufer(double votingKaeufer) {
