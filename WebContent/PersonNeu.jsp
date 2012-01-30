@@ -13,7 +13,7 @@
 <tr style='height:40px;'>
 	<td>Zum registrieren bitte einen Usernamen und ein Passwort wählen.</td>
 </tr>
-
+ 
 <tr>
 	<td valign=top>
 	<form method=get >

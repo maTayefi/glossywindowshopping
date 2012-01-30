@@ -28,7 +28,7 @@
 		
 		Artikelliste al = new Artikelliste();
 		
-		Artikel[] alleA =  al.suche((""),(0));
+		Artikel[] alleA =  al.suche("",0);
 		
 		String grey = "dddddd";
 		

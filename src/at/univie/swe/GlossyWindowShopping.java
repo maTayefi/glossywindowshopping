@@ -93,7 +93,7 @@ public class GlossyWindowShopping extends HttpServlet implements SingleThreadMod
 			
 		}
 
-		// voting für Kaefer
+		// voting für verKaefer
 		if ( request.getParameter("voteVerkaeufer") != null ) { 
 			MySQLConnection t = new MySQLConnection();
 			t.set("insert into votingverkaeufer (vid,vote) values ('"+request.getParameter("voteVerkaeufer")+"','"+request.getParameter("vote")+"')");
